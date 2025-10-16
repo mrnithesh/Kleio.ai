@@ -1,0 +1,65 @@
+# This file specifies files that are *not* uploaded to Google Cloud
+# using gcloud. It follows the same syntax as .gitignore.
+
+.gcloudignore
+.git
+.gitignore
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+backend/venv/
+backend/__pycache__/
+
+# Environment files
+.env
+.env.*
+*.env
+backend/.env
+frontend/.env
+
+# Secrets
+firebase-adminsdk.json
+serviceAccountKey.json
+backend/firebase-adminsdk.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build outputs
+frontend/dist/
+frontend/build/
+
+# Documentation
+docs/
+*.md
+README.md
+backend/docs/
+frontend/docs/
+
+# Testing
+tests/
+backend/tests/
+*.test.*
+coverage/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+

@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Environment files (secrets should be in Secret Manager)
+.env
+.env.*
+*.env
+
+# Firebase credentials (should be in Secret Manager)
+firebase-adminsdk.json
+serviceAccountKey.json
+*.json
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+tests/
+test_*.py
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Documentation
+docs/
+*.md
+README.md
+
+# Scripts
+scripts/
+seed_*.py
+test_*.py
+verify_*.py
+
+# Database migrations (run separately)
+migrations/versions/
+alembic.ini
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Images (test files)
+*.jpg
+*.jpeg
+*.png
+*.gif
+test_receipt.*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+

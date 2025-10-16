@@ -2,6 +2,8 @@
 # Verifies Firebase ID tokens and extracts user information
 
 
+import os
+import json
 import firebase_admin
 from firebase_admin import credentials, auth
 from fastapi import Depends, HTTPException, status
@@ -18,6 +20,7 @@ firebase_app = None
 
 def init_firebase():
     # Initialize Firebase Admin SDK
+    # Supports both file-based (local dev) and env var (Cloud Run) credentials
 
     global firebase_app
     
@@ -25,16 +28,25 @@ def init_firebase():
         return firebase_app
     
     try:
-        key_path = Path(settings.firebase_private_key_path)
+        # Check if running in Cloud Run (secrets as env var)
+        if settings.firebase_service_account_json:
+            logger.info("Loading Firebase credentials from environment variable")
+            cred_dict = json.loads(settings.firebase_service_account_json)
+            cred = credentials.Certificate(cred_dict)
+        else:
+            # Local development (file path)
+            logger.info("Loading Firebase credentials from file")
+            key_path = Path(settings.firebase_private_key_path)
+            
+            if not key_path.exists():
+                logger.error(f"Firebase service account key not found at {key_path}")
+                raise FileNotFoundError(
+                    f"Firebase service account key not found. "
+                    f"Download it from Firebase Console and save to {key_path}"
+                )
+            
+            cred = credentials.Certificate(str(key_path))
         
-        if not key_path.exists():
-            logger.error(f"Firebase service account key not found at {key_path}")
-            raise FileNotFoundError(
-                f"Firebase service account key not found. "
-                f"Download it from Firebase Console and save to {key_path}"
-            )
-        
-        cred = credentials.Certificate(str(key_path))
         firebase_app = firebase_admin.initialize_app(cred)
         logger.info("✅ Firebase Admin SDK initialized successfully")
         return firebase_app
