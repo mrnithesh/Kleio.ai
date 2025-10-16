@@ -18,7 +18,7 @@ import sys
 from config import settings
 from database import init_db, check_db_connection
 from utils.auth import init_firebase
-from routers import health, users, inventory, ai, recipes, shopping, chat
+from routers import health, users, inventory, ai, recipes, shopping, chat, telegram
 from utils.scheduler import start_scheduler, stop_scheduler
 
 # Configure logging
@@ -126,6 +126,7 @@ app.include_router(ai.router)
 app.include_router(recipes.router)
 app.include_router(shopping.router)
 app.include_router(chat.router)
+app.include_router(telegram.router)
 
 
 # Global exception handler
@@ -145,7 +146,7 @@ if __name__ == "__main__":
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
-        port=8000,
+        port=settings.port,
         reload=settings.debug,
         log_level="debug" if settings.debug else "info"
     )

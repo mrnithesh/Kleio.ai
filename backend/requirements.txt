@@ -41,3 +41,6 @@ langchain-google-genai==2.0.8
 langgraph==0.2.59
 langgraph-checkpoint==2.0.10
 
+# Telegram Bot
+python-telegram-bot==20.7
+
