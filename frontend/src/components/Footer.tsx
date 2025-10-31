@@ -1,67 +1,61 @@
-import { Sparkles } from "lucide-react";
+import { Home, Github, Linkedin, ExternalLink } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-muted/30 border-t border-border/50 py-12">
+    <footer className="bg-muted/40 border-t border-border/40 py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Brand */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg gradient-hero flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-white" />
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                <Home className="w-5 h-5 text-primary" />
               </div>
-              <span className="text-xl font-bold text-primary">
+              <span className="text-xl font-bold text-foreground tracking-tight">
                 Kleio.ai
               </span>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              AI-powered household intelligence for Indian families. Smarter shopping, better planning, happier homes.
+            <div className="hidden md:block h-6 w-px bg-border/50" />
+            <p className="text-sm text-muted-foreground">
+              Built with ❤️ by <span className="font-medium text-foreground">Nithesh</span>
             </p>
           </div>
 
-          {/* Product */}
-          <div className="space-y-4">
-            <h4 className="font-semibold">Product</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#features" className="hover:text-primary transition-smooth">Features</a></li>
-              <li><a href="#how-it-works" className="hover:text-primary transition-smooth">How It Works</a></li>
-              <li><a href="#pricing" className="hover:text-primary transition-smooth">Pricing</a></li>
-              <li><a href="#faq" className="hover:text-primary transition-smooth">FAQ</a></li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div className="space-y-4">
-            <h4 className="font-semibold">Company</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#about" className="hover:text-primary transition-smooth">About Us</a></li>
-              <li><a href="#blog" className="hover:text-primary transition-smooth">Blog</a></li>
-              <li><a href="#careers" className="hover:text-primary transition-smooth">Careers</a></li>
-              <li><a href="#contact" className="hover:text-primary transition-smooth">Contact</a></li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div className="space-y-4">
-            <h4 className="font-semibold">Legal</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#privacy" className="hover:text-primary transition-smooth">Privacy Policy</a></li>
-              <li><a href="#terms" className="hover:text-primary transition-smooth">Terms of Service</a></li>
-              <li><a href="#security" className="hover:text-primary transition-smooth">Security</a></li>
-              <li><a href="#cookies" className="hover:text-primary transition-smooth">Cookie Policy</a></li>
-            </ul>
+          {/* Social Links */}
+          <div className="flex items-center gap-6">
+            <a 
+              href="https://github.com/mrnithesh" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+            >
+              <Github className="w-4 h-4" />
+              <span>GitHub</span>
+            </a>
+            <a 
+              href="https://linkedin.com/in/mrnithesh" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+            >
+              <Linkedin className="w-4 h-4" />
+              <span>LinkedIn</span>
+            </a>
+            <a 
+              href="https://nithesh.codes" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+            >
+              <ExternalLink className="w-4 h-4" />
+              <span>Portfolio</span>
+            </a>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+        {/* Copyright */}
+        <div className="pt-6 mt-6 border-t border-border/40 text-center text-sm text-muted-foreground">
           <p>© 2025 Kleio.ai. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <a href="#twitter" className="hover:text-primary transition-smooth">Twitter</a>
-            <a href="#linkedin" className="hover:text-primary transition-smooth">LinkedIn</a>
-            <a href="#instagram" className="hover:text-primary transition-smooth">Instagram</a>
-          </div>
         </div>
       </div>
     </footer>
