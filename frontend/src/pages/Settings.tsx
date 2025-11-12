@@ -16,8 +16,8 @@ const SettingsPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-10">
+    <div className="min-h-screen gradient-subtle texture-overlay">
+      <header className="border-b border-border/40 sticky top-0 bg-background/95 backdrop-blur-md z-10 shadow-soft">
         <div className="container mx-auto px-4 py-4 flex items-center gap-4">
           <Button variant="outline" size="icon" onClick={() => navigate('/app')}>
             <ChevronLeft className="w-4 h-4" />

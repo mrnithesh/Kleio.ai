@@ -213,7 +213,7 @@ const SmartShoppingList = () => {
         <div className="space-y-6">
           {/* Summary Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card>
+            <Card className="border-border/40 shadow-soft bg-card/80 backdrop-blur-sm">
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   Total Items
@@ -224,7 +224,7 @@ const SmartShoppingList = () => {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-border/40 shadow-soft bg-card/80 backdrop-blur-sm">
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-1">
                   <AlertCircle className="w-4 h-4 text-red-500" />
@@ -238,7 +238,7 @@ const SmartShoppingList = () => {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-border/40 shadow-soft bg-card/80 backdrop-blur-sm">
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-1">
                   <Calendar className="w-4 h-4 text-orange-500" />
@@ -252,7 +252,7 @@ const SmartShoppingList = () => {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-border/40 shadow-soft bg-card/80 backdrop-blur-sm">
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-1">
                   <CheckCircle2 className="w-4 h-4 text-green-500" />

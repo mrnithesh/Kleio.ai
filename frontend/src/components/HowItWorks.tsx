@@ -37,7 +37,7 @@ const steps = [
 
 export const HowItWorks = () => {
   return (
-    <section className="py-32 relative overflow-hidden bg-background">
+    <section className="py-32 relative overflow-hidden bg-background texture-overlay">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20 space-y-5 animate-fade-in">
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground leading-tight">

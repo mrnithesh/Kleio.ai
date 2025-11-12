@@ -205,26 +205,26 @@ const InventoryListEnhanced = () => {
 
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
-      'grains': 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100',
-      'dairy': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100',
-      'vegetables': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100',
-      'fruits': 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-100',
-      'spices': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100',
-      'oils': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100',
-      'snacks': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100',
-      'beverages': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-100',
+      'grains': 'bg-secondary/10 text-secondary border-secondary/20',
+      'dairy': 'bg-accent/10 text-accent border-accent/20',
+      'vegetables': 'bg-primary/10 text-primary border-primary/20',
+      'fruits': 'bg-secondary/10 text-secondary border-secondary/20',
+      'spices': 'bg-secondary/10 text-secondary border-secondary/20',
+      'oils': 'bg-accent/10 text-accent border-accent/20',
+      'snacks': 'bg-accent/10 text-accent border-accent/20',
+      'beverages': 'bg-primary/10 text-primary border-primary/20',
     };
-    return colors[category.toLowerCase()] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100';
+    return colors[category.toLowerCase()] || 'bg-muted text-muted-foreground border-border/50';
   };
 
   const getUrgencyBadge = (urgency: string) => {
     switch (urgency) {
       case 'urgent':
-        return <Badge variant="destructive" className="text-xs">🚨 URGENT</Badge>;
+        return <Badge className="bg-secondary/10 text-secondary border-secondary/20 text-xs font-semibold">URGENT</Badge>;
       case 'this_week':
-        return <Badge className="bg-orange-500 hover:bg-orange-600 text-white text-xs">📅 THIS WEEK</Badge>;
+        return <Badge className="bg-accent/10 text-accent border-accent/20 text-xs font-semibold">THIS WEEK</Badge>;
       case 'later':
-        return <Badge variant="secondary" className="text-xs">✅ GOOD</Badge>;
+        return <Badge className="bg-primary/10 text-primary border-primary/20 text-xs font-semibold">GOOD</Badge>;
       default:
         return null;
     }
@@ -241,11 +241,11 @@ const InventoryListEnhanced = () => {
 
   if (isLoading) {
     return (
-      <Card>
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
         <CardContent className="pt-6">
           <div className="space-y-3">
             {[1, 2, 3, 4].map((i) => (
-              <Skeleton key={i} className="h-16 w-full" />
+              <Skeleton key={i} className="h-16 w-full rounded-lg bg-muted/50" />
             ))}
           </div>
         </CardContent>
@@ -255,11 +255,13 @@ const InventoryListEnhanced = () => {
 
   if (error) {
     return (
-      <Card>
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
         <CardContent className="pt-6">
           <div className="text-center py-12">
-            <AlertCircle className="w-12 h-12 mx-auto text-destructive mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Failed to Load Inventory</h3>
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-destructive/10 flex items-center justify-center border border-destructive/20">
+              <AlertCircle className="w-8 h-8 text-destructive" />
+            </div>
+            <h3 className="text-lg lg:text-xl font-semibold text-foreground mb-2">Failed to Load Inventory</h3>
             <p className="text-sm text-muted-foreground">
               {(error as any).message || 'Please try again later.'}
             </p>
@@ -272,21 +274,28 @@ const InventoryListEnhanced = () => {
   if (!items || items.length === 0) {
     return (
       <>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="text-center py-12">
-              <Package className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-              <h3 className="text-lg font-semibold mb-2">No Items Yet</h3>
-              <p className="text-sm text-muted-foreground mb-6">
-                Start by scanning a receipt or adding items manually
-              </p>
-              <Button onClick={() => setAddDialogOpen(true)}>
-                <Plus className="w-4 h-4 mr-2" />
-                Add Your First Item
-              </Button>
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
+        <CardContent className="pt-6">
+          <div className="text-center py-12 lg:py-16">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+              <Package className="w-10 h-10 text-primary" />
             </div>
-          </CardContent>
-        </Card>
+            <h3 className="text-xl lg:text-2xl font-bold text-foreground mb-2">No Items Yet</h3>
+            <p className="text-base text-muted-foreground mb-8 max-w-md mx-auto">
+              Start by scanning a receipt or adding items manually
+            </p>
+            <Button 
+              onClick={() => setAddDialogOpen(true)}
+              variant="hero"
+              size="lg"
+              className="shadow-colored hover:shadow-medium"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add Your First Item
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
         <AddItemDialog open={addDialogOpen} onOpenChange={setAddDialogOpen} />
       </>
     );
@@ -294,18 +303,23 @@ const InventoryListEnhanced = () => {
 
   return (
     <>
-      <Card>
-        <CardHeader>
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
+        <CardHeader className="pb-5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <CardTitle className="text-xl">Inventory Items</CardTitle>
-            <Button onClick={() => setAddDialogOpen(true)} size="sm">
+            <CardTitle className="text-xl lg:text-2xl font-bold text-foreground">Inventory Items</CardTitle>
+            <Button 
+              onClick={() => setAddDialogOpen(true)} 
+              size="sm"
+              variant="hero"
+              className="shadow-colored hover:shadow-medium"
+            >
               <Plus className="w-4 h-4 mr-2" />
               Add Item
             </Button>
           </div>
         </CardHeader>
 
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-5">
           {/* Search & Filters */}
           <div className="flex flex-col sm:flex-row gap-3">
             {/* Search */}
@@ -315,13 +329,13 @@ const InventoryListEnhanced = () => {
                 placeholder="Search items..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 border-border/50 focus:border-primary/50 focus:shadow-soft transition-all"
               />
               {searchQuery && (
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7 w-7 p-0"
+                  className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7 w-7 p-0 hover:bg-primary/5"
                   onClick={() => setSearchQuery('')}
                 >
                   <X className="h-4 w-4" />
@@ -331,8 +345,8 @@ const InventoryListEnhanced = () => {
 
             {/* Category Filter */}
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-              <SelectTrigger className="w-full sm:w-[180px]">
-                <Filter className="w-4 h-4 mr-2" />
+              <SelectTrigger className="w-full sm:w-[180px] border-border/50 focus:border-primary/50">
+                <Filter className="w-4 h-4 mr-2 text-muted-foreground" />
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
@@ -347,8 +361,8 @@ const InventoryListEnhanced = () => {
 
             {/* Sort */}
             <Select value={sortBy} onValueChange={(value: any) => setSortBy(value)}>
-              <SelectTrigger className="w-full sm:w-[150px]">
-                <SortAsc className="w-4 h-4 mr-2" />
+              <SelectTrigger className="w-full sm:w-[150px] border-border/50 focus:border-primary/50">
+                <SortAsc className="w-4 h-4 mr-2 text-muted-foreground" />
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
@@ -364,6 +378,7 @@ const InventoryListEnhanced = () => {
               size="icon"
               onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
               title={sortOrder === 'asc' ? 'Ascending' : 'Descending'}
+              className="border-border/50 hover:border-primary/30 hover:bg-primary/5"
             >
               <SortAsc className={`w-4 h-4 ${sortOrder === 'desc' ? 'rotate-180' : ''}`} />
             </Button>
@@ -371,8 +386,8 @@ const InventoryListEnhanced = () => {
 
           {/* Bulk Actions */}
           {selectedItems.length > 0 && (
-            <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
-              <span className="text-sm font-medium">
+            <div className="flex items-center justify-between p-4 bg-primary/5 border border-primary/20 rounded-xl backdrop-blur-sm">
+              <span className="text-sm font-semibold text-foreground">
                 {selectedItems.length} item{selectedItems.length !== 1 ? 's' : ''} selected
               </span>
               <div className="flex gap-2">
@@ -380,6 +395,7 @@ const InventoryListEnhanced = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => setSelectedItems([])}
+                  className="border-border/50 hover:border-primary/30 hover:bg-primary/5"
                 >
                   Clear
                 </Button>
@@ -388,6 +404,7 @@ const InventoryListEnhanced = () => {
                   size="sm"
                   onClick={handleBulkDelete}
                   disabled={bulkDeleteMutation.isPending}
+                  className="shadow-soft hover:shadow-medium"
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
                   Delete Selected
@@ -397,35 +414,35 @@ const InventoryListEnhanced = () => {
           )}
 
           {/* Results Count */}
-          <div className="text-sm text-muted-foreground">
+          <div className="text-sm text-muted-foreground font-medium">
             Showing {filteredAndSortedItems.length} of {items.length} items
           </div>
 
           {/* Table */}
-          <div className="border rounded-lg overflow-hidden">
+          <div className="border border-border/40 rounded-xl overflow-hidden shadow-medium bg-card/50 backdrop-blur-sm">
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow>
+                  <TableRow className="border-b border-border/40 bg-muted/40 hover:bg-muted/40">
                     <TableHead className="w-12">
                       <Checkbox
                         checked={selectedItems.length === filteredAndSortedItems.length && filteredAndSortedItems.length > 0}
                         onCheckedChange={toggleSelectAll}
                       />
                     </TableHead>
-                    <TableHead>Item Name</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead className="text-right">Quantity</TableHead>
-                    <TableHead className="hidden lg:table-cell">Pattern Status</TableHead>
-                    <TableHead className="hidden sm:table-cell">Added</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    <TableHead className="font-semibold text-foreground text-sm">Item Name</TableHead>
+                    <TableHead className="font-semibold text-foreground text-sm">Category</TableHead>
+                    <TableHead className="text-right font-semibold text-foreground text-sm">Quantity</TableHead>
+                    <TableHead className="hidden lg:table-cell font-semibold text-foreground text-sm">Pattern Status</TableHead>
+                    <TableHead className="hidden sm:table-cell font-semibold text-foreground text-sm">Added</TableHead>
+                    <TableHead className="text-right font-semibold text-foreground text-sm">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {filteredAndSortedItems.map((item) => {
                     const pattern = predictionMap.get(item.item_name.toLowerCase());
                     return (
-                      <TableRow key={item.id}>
+                      <TableRow key={item.id} className="border-b border-border/20 hover:bg-muted/40 transition-all duration-200 group">
                         <TableCell>
                           <Checkbox
                             checked={selectedItems.includes(item.id)}
@@ -433,23 +450,27 @@ const InventoryListEnhanced = () => {
                           />
                         </TableCell>
                         <TableCell>
-                          <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-2">
-                              <span className="font-medium">{item.item_name}</span>
+                          <div className="flex flex-col gap-1.5">
+                            <div className="flex items-center gap-2.5">
+                              <span className="font-semibold text-foreground">{item.item_name}</span>
                               {pattern && getUrgencyBadge(pattern.urgency)}
                             </div>
                             {/* Mobile: Show pattern info */}
                             {pattern && (
-                              <div className="lg:hidden text-xs text-muted-foreground flex items-center gap-2">
+                              <div className="lg:hidden text-xs text-muted-foreground flex items-center gap-2 flex-wrap">
                                 {pattern.days_until_depletion !== null && (
                                   <span className="flex items-center gap-1">
-                                    <Clock className="w-3 h-3" />
+                                    <Clock className={`w-3 h-3 ${
+                                      pattern.days_until_depletion <= 1 ? 'text-secondary' :
+                                      pattern.days_until_depletion <= 7 ? 'text-accent' :
+                                      'text-primary'
+                                    }`} />
                                     {Math.round(pattern.days_until_depletion)}d left
                                   </span>
                                 )}
                                 {pattern.avg_days_between_purchases && (
                                   <span className="flex items-center gap-1">
-                                    <TrendingUp className="w-3 h-3" />
+                                    <TrendingUp className="w-3 h-3 text-primary" />
                                     ~{Math.round(pattern.avg_days_between_purchases)}d cycle
                                   </span>
                                 )}
@@ -459,65 +480,52 @@ const InventoryListEnhanced = () => {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge className={getCategoryColor(item.category)} variant="secondary">
+                          <Badge className={`${getCategoryColor(item.category)} border rounded-lg px-2.5 py-1 text-xs font-medium`} variant="outline">
                             {item.category}
                           </Badge>
                         </TableCell>
                         <TableCell className="text-right">
-                          <div className="flex flex-col items-end">
-                            <span className="font-medium">{item.quantity} {item.unit}</span>
-                            {pattern && pattern.days_until_depletion !== null && (
-                              <div className="w-full max-w-[80px] mt-1">
-                                <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                                  <div 
-                                    className={`h-full transition-all ${
-                                      pattern.days_until_depletion <= 1 ? 'bg-red-500' :
-                                      pattern.days_until_depletion <= 7 ? 'bg-orange-500' :
-                                      'bg-green-500'
-                                    }`}
-                                    style={{ 
-                                      width: `${Math.min(100, Math.max(0, (pattern.days_until_depletion / (pattern.avg_days_between_purchases || 7)) * 100))}%`
-                                    }}
-                                  />
-                                </div>
-                              </div>
-                            )}
-                          </div>
+                          <span className="font-semibold text-foreground">{item.quantity} <span className="text-muted-foreground font-normal">{item.unit}</span></span>
                         </TableCell>
                         {/* Desktop: Pattern Status Column */}
                         <TableCell className="hidden lg:table-cell">
                           {pattern ? (
-                            <div className="text-xs space-y-1">
+                            <div className="text-xs space-y-2">
                               {pattern.days_until_depletion !== null && (
-                                <div className="flex items-center gap-1 text-muted-foreground">
-                                  <Clock className="w-3 h-3" />
-                                  Runs out in {Math.round(pattern.days_until_depletion)} day{Math.round(pattern.days_until_depletion) !== 1 ? 's' : ''}
+                                <div className="flex items-center gap-2 text-foreground">
+                                  <Clock className={`w-4 h-4 ${
+                                    pattern.days_until_depletion <= 1 ? 'text-secondary' :
+                                    pattern.days_until_depletion <= 7 ? 'text-accent' :
+                                    'text-primary'
+                                  }`} />
+                                  <span className="font-medium">{Math.round(pattern.days_until_depletion)} day{Math.round(pattern.days_until_depletion) !== 1 ? 's' : ''} left</span>
                                 </div>
                               )}
                               {pattern.avg_days_between_purchases && (
-                                <div className="flex items-center gap-1 text-muted-foreground">
-                                  <TrendingUp className="w-3 h-3" />
-                                  Buy every ~{Math.round(pattern.avg_days_between_purchases)} days
+                                <div className="flex items-center gap-2 text-muted-foreground">
+                                  <TrendingUp className="w-4 h-4 text-primary" />
+                                  <span>~{Math.round(pattern.avg_days_between_purchases)}d cycle</span>
                                 </div>
                               )}
-                              <div className="flex items-center gap-1">
+                              <div className="flex items-center gap-1.5 pt-1">
                                 <span className="text-muted-foreground">{getConfidenceStars(pattern.confidence_level)}</span>
-                                <span className="capitalize text-muted-foreground">{pattern.confidence_level}</span>
+                                <span className="text-xs capitalize text-muted-foreground">{pattern.confidence_level}</span>
                               </div>
                             </div>
                           ) : (
-                            <span className="text-xs text-muted-foreground">Building pattern...</span>
+                            <span className="text-xs text-muted-foreground italic">Building pattern...</span>
                           )}
                         </TableCell>
                         <TableCell className="text-sm text-muted-foreground hidden sm:table-cell">
                           {format(new Date(item.added_date), 'MMM d, yyyy')}
                         </TableCell>
                         <TableCell>
-                          <div className="flex justify-end gap-2">
+                          <div className="flex justify-end gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             <Button
                               variant="ghost"
                               size="sm"
                               onClick={() => handleEdit(item)}
+                              className="h-8 w-8 p-0 hover:bg-primary/10 hover:text-primary"
                             >
                               <Edit2 className="w-4 h-4" />
                             </Button>
@@ -526,8 +534,9 @@ const InventoryListEnhanced = () => {
                               size="sm"
                               onClick={() => handleDelete(item.id, item.item_name)}
                               disabled={deleteItemMutation.isPending}
+                              className="h-8 w-8 p-0 hover:bg-destructive/10 hover:text-destructive"
                             >
-                              <Trash2 className="w-4 h-4 text-destructive" />
+                              <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
                         </TableCell>

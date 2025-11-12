@@ -138,7 +138,7 @@ const RecipeGenerator = () => {
 
   if (inventoryLoading) {
     return (
-      <Card>
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
         <CardContent className="pt-6">
           <div className="space-y-3">
             <Skeleton className="h-32 w-full" />
@@ -151,7 +151,7 @@ const RecipeGenerator = () => {
 
   if (!inventory || inventory.length === 0) {
     return (
-      <Card>
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
         <CardContent className="pt-6">
           <div className="text-center py-12">
             <ChefHat className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
@@ -169,7 +169,7 @@ const RecipeGenerator = () => {
     <>
       <div className="space-y-6">
         {/* Recipe Filters */}
-        <Card>
+        <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
@@ -314,7 +314,7 @@ const RecipeGenerator = () => {
 
         {/* Help Text */}
         {!generatedRecipe && !generateRecipeMutation.isPending && (
-          <Card className="border-dashed">
+          <Card className="border-dashed border-border/40 bg-card/50 backdrop-blur-sm">
             <CardContent className="pt-6">
               <div className="text-center py-8 text-muted-foreground">
                 <ChefHat className="w-12 h-12 mx-auto mb-3 opacity-50" />
@@ -330,7 +330,7 @@ const RecipeGenerator = () => {
         )}
 
         {/* Inventory Summary */}
-        <Card>
+        <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-base">Your Current Inventory</CardTitle>
           </CardHeader>

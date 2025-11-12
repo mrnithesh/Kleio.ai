@@ -39,9 +39,9 @@ const PatternSummaryCards = () => {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         {[1, 2, 3, 4].map((i) => (
-          <Skeleton key={i} className="h-32" />
+          <Skeleton key={i} className="h-36 rounded-xl" />
         ))}
       </div>
     );
@@ -53,66 +53,68 @@ const PatternSummaryCards = () => {
   }
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-2">
-        <TrendingUp className="w-5 h-5 text-primary" />
-        <h3 className="text-lg font-semibold">Pattern Intelligence Summary</h3>
+    <div className="space-y-4 lg:space-y-6">
+      <div className="flex items-center gap-2.5">
+        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+          <TrendingUp className="w-4 h-4 text-primary" />
+        </div>
+        <h3 className="text-lg lg:text-xl font-semibold text-foreground">Consumption Insights</h3>
       </div>
       
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         {/* Urgent */}
-        <Card className="hover:shadow-md transition-shadow border-l-4 border-l-red-500">
-          <CardContent className="p-4">
-            <div className="flex items-start justify-between mb-2">
-              <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center">
-                <AlertTriangle className="w-4 h-4 text-red-600" />
+        <Card className="group hover:shadow-medium hover:-translate-y-1 transition-all duration-300 border-border/40 bg-card/80 backdrop-blur-sm overflow-hidden border-l-4 border-l-secondary shadow-soft">
+          <CardContent className="p-5 lg:p-6">
+            <div className="flex items-start justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <AlertTriangle className="w-5 h-5 text-secondary" />
               </div>
-              <span className="text-xs text-muted-foreground">URGENT</span>
+              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">URGENT</span>
             </div>
-            <div className="text-3xl font-bold text-red-600">{urgentCount}</div>
-            <p className="text-xs text-muted-foreground mt-1">Buy Today</p>
+            <div className="text-3xl lg:text-4xl font-bold text-foreground mb-1">{urgentCount}</div>
+            <p className="text-sm text-muted-foreground">Buy Today</p>
           </CardContent>
         </Card>
 
         {/* This Week */}
-        <Card className="hover:shadow-md transition-shadow border-l-4 border-l-orange-500">
-          <CardContent className="p-4">
-            <div className="flex items-start justify-between mb-2">
-              <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center">
-                <Calendar className="w-4 h-4 text-orange-600" />
+        <Card className="group hover:shadow-medium hover:-translate-y-1 transition-all duration-300 border-border/40 bg-card/80 backdrop-blur-sm overflow-hidden border-l-4 border-l-accent shadow-soft">
+          <CardContent className="p-5 lg:p-6">
+            <div className="flex items-start justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Calendar className="w-5 h-5 text-accent" />
               </div>
-              <span className="text-xs text-muted-foreground">THIS WEEK</span>
+              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">THIS WEEK</span>
             </div>
-            <div className="text-3xl font-bold text-orange-600">{thisWeekCount}</div>
-            <p className="text-xs text-muted-foreground mt-1">Buy Soon</p>
+            <div className="text-3xl lg:text-4xl font-bold text-foreground mb-1">{thisWeekCount}</div>
+            <p className="text-sm text-muted-foreground">Buy Soon</p>
           </CardContent>
         </Card>
 
         {/* Good Stock */}
-        <Card className="hover:shadow-md transition-shadow border-l-4 border-l-green-500">
-          <CardContent className="p-4">
-            <div className="flex items-start justify-between mb-2">
-              <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center">
-                <CheckCircle className="w-4 h-4 text-green-600" />
+        <Card className="group hover:shadow-medium hover:-translate-y-1 transition-all duration-300 border-border/40 bg-card/80 backdrop-blur-sm overflow-hidden border-l-4 border-l-primary shadow-soft">
+          <CardContent className="p-5 lg:p-6">
+            <div className="flex items-start justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <CheckCircle className="w-5 h-5 text-primary" />
               </div>
-              <span className="text-xs text-muted-foreground">GOOD</span>
+              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">GOOD</span>
             </div>
-            <div className="text-3xl font-bold text-green-600">{goodCount}</div>
-            <p className="text-xs text-muted-foreground mt-1">Stock OK</p>
+            <div className="text-3xl lg:text-4xl font-bold text-foreground mb-1">{goodCount}</div>
+            <p className="text-sm text-muted-foreground">Stock OK</p>
           </CardContent>
         </Card>
 
         {/* Pattern Health */}
-        <Card className="hover:shadow-md transition-shadow border-l-4 border-l-blue-500">
-          <CardContent className="p-4">
-            <div className="flex items-start justify-between mb-2">
-              <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
-                <TrendingUp className="w-4 h-4 text-blue-600" />
+        <Card className="group hover:shadow-medium hover:-translate-y-1 transition-all duration-300 border-border/40 bg-card/80 backdrop-blur-sm overflow-hidden border-l-4 border-l-accent shadow-soft">
+          <CardContent className="p-5 lg:p-6">
+            <div className="flex items-start justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <TrendingUp className="w-5 h-5 text-accent" />
               </div>
-              <span className="text-xs text-muted-foreground">TRACKED</span>
+              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">TRACKED</span>
             </div>
-            <div className="text-3xl font-bold text-blue-600">{totalTracked}</div>
-            <p className="text-xs text-muted-foreground mt-1">{patternHealth}% Health</p>
+            <div className="text-3xl lg:text-4xl font-bold text-foreground mb-1">{totalTracked}</div>
+            <p className="text-sm text-muted-foreground">{patternHealth}% Health</p>
           </CardContent>
         </Card>
       </div>

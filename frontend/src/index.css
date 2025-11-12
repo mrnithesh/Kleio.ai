@@ -43,6 +43,9 @@ All colors MUST be HSL.
     --gradient-feature: linear-gradient(135deg, hsl(28 85% 98%) 0%, hsl(145 60% 97%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(250 70% 50%) 0%, hsl(145 60% 38%) 100%);
     --gradient-subtle: linear-gradient(135deg, hsl(28 20% 98%) 0%, hsl(145 15% 98%) 100%);
+    --gradient-auth: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(28 20% 99%) 30%, hsl(145 15% 99%) 70%, hsl(0 0% 100%) 100%);
+    --gradient-page: linear-gradient(135deg, hsl(28 15% 99%) 0%, hsl(145 10% 98.5%) 50%, hsl(250 10% 99%) 100%);
+    --gradient-muted: linear-gradient(135deg, hsl(240 5% 98%) 0%, hsl(240 5% 97%) 100%);
     
     /* Shadows - more nuanced, less green-tinted */
     --shadow-soft: 0 2px 12px -2px hsl(240 10% 20% / 0.08);
@@ -146,6 +149,18 @@ All colors MUST be HSL.
     transition: var(--transition-smooth);
   }
 
+  .gradient-auth {
+    background: var(--gradient-auth);
+  }
+
+  .gradient-page {
+    background: var(--gradient-page);
+  }
+
+  .gradient-muted {
+    background: var(--gradient-muted);
+  }
+
   .texture-overlay {
     position: relative;
   }
@@ -155,8 +170,37 @@ All colors MUST be HSL.
     position: absolute;
     inset: 0;
     background-image: 
-      radial-gradient(circle at 1px 1px, hsl(240 10% 20% / 0.03) 1px, transparent 0);
-    background-size: 24px 24px;
+      radial-gradient(circle at 1px 1px, hsl(240 10% 20% / 0.03) 1px, transparent 0),
+      radial-gradient(circle at 20px 20px, hsl(240 10% 20% / 0.015) 1px, transparent 0);
+    background-size: 24px 24px, 48px 48px;
     pointer-events: none;
+    z-index: 0;
+  }
+
+  .texture-overlay > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .bg-gradient-orbs {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bg-gradient-orbs::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, hsl(28 85% 55% / 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, hsl(145 60% 38% / 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, hsl(250 70% 50% / 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-gradient-orbs > * {
+    position: relative;
+    z-index: 1;
   }
 }

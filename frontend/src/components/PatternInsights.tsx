@@ -55,11 +55,11 @@ const PatternInsights = () => {
   const getUrgencyBadge = (urgency: string) => {
     switch (urgency) {
       case 'urgent':
-        return <Badge variant="destructive" className="text-xs">🚨 URGENT</Badge>;
+        return <Badge className="bg-secondary/10 text-secondary border-secondary/20 text-xs font-semibold">URGENT</Badge>;
       case 'this_week':
-        return <Badge className="bg-orange-500 hover:bg-orange-600 text-xs">📅 THIS WEEK</Badge>;
+        return <Badge className="bg-accent/10 text-accent border-accent/20 text-xs font-semibold">THIS WEEK</Badge>;
       case 'later':
-        return <Badge variant="secondary" className="text-xs">✅ GOOD</Badge>;
+        return <Badge className="bg-primary/10 text-primary border-primary/20 text-xs font-semibold">GOOD</Badge>;
       default:
         return <Badge variant="outline" className="text-xs">{urgency}</Badge>;
     }
@@ -164,9 +164,9 @@ const PatternInsights = () => {
 
       {/* Empty State */}
       {itemsWithPatterns.length === 0 && (
-        <Card className="border-dashed">
+        <Card className="border-dashed border-border/40 bg-card/50 backdrop-blur-sm">
           <CardContent className="flex flex-col items-center justify-center py-12 text-center">
-            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 border border-primary/20">
               <Sparkles className="w-8 h-8 text-primary" />
             </div>
             <h3 className="text-xl font-semibold mb-2">Start Building Patterns!</h3>
@@ -189,7 +189,7 @@ const PatternInsights = () => {
           {itemsWithPatterns.map((item) => (
             <Card 
               key={item.item_name} 
-              className="hover:shadow-lg transition-all cursor-pointer group"
+              className="hover:shadow-medium hover:-translate-y-1 transition-all duration-300 cursor-pointer group border-border/40 bg-card/80 backdrop-blur-sm shadow-soft"
               onClick={() => handleViewDetails(item)}
             >
               <CardHeader className="pb-3">
@@ -259,10 +259,10 @@ const PatternInsights = () => {
 
       {/* Items Needing More Data */}
       {itemsNeedingMoreData.length > 0 && (
-        <Card className="bg-blue-50/50 border-blue-200">
+        <Card className="bg-accent/5 border-accent/20 border-border/40 shadow-soft bg-card/80 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-sm flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-blue-600" />
+              <AlertCircle className="w-4 h-4 text-accent" />
               Building Pattern Confidence
             </CardTitle>
           </CardHeader>
@@ -272,7 +272,7 @@ const PatternInsights = () => {
             </p>
             <div className="flex flex-wrap gap-2">
               {itemsNeedingMoreData.map((item) => (
-                <Badge key={item.item_name} variant="outline" className="text-xs">
+                <Badge key={item.item_name} variant="outline" className="text-xs border-border/50">
                   {item.item_name} ({item.data_points_count}/5 cycles)
                 </Badge>
               ))}
@@ -301,7 +301,7 @@ const PatternInsights = () => {
             <div className="space-y-6 mt-4">
               {/* Overview */}
               <div className="grid grid-cols-2 gap-4">
-                <Card>
+                <Card className="border-border/40 bg-card/80 backdrop-blur-sm shadow-soft">
                   <CardContent className="pt-6">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                       <Package className="w-4 h-4" />
@@ -313,7 +313,7 @@ const PatternInsights = () => {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="border-border/40 bg-card/80 backdrop-blur-sm shadow-soft">
                   <CardContent className="pt-6">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                       <Calendar className="w-4 h-4" />
@@ -333,7 +333,7 @@ const PatternInsights = () => {
               </div>
 
               {/* Confidence */}
-              <Card>
+              <Card className="border-border/40 bg-card/80 backdrop-blur-sm shadow-soft">
                 <CardHeader>
                   <CardTitle className="text-sm">Prediction Confidence</CardTitle>
                 </CardHeader>
@@ -352,7 +352,7 @@ const PatternInsights = () => {
               </Card>
 
               {/* Usage Patterns */}
-              <Card>
+              <Card className="border-border/40 bg-card/80 backdrop-blur-sm shadow-soft">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Activity className="w-5 h-5" />
@@ -360,7 +360,7 @@ const PatternInsights = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="flex justify-between p-3 border rounded-lg">
+                  <div className="flex justify-between p-3 border border-border/40 rounded-lg bg-muted/30">
                     <div>
                       <p className="text-sm font-medium">Purchase Frequency</p>
                       <p className="text-xs text-muted-foreground">How often you buy</p>
@@ -375,7 +375,7 @@ const PatternInsights = () => {
                     </div>
                   </div>
 
-                  <div className="flex justify-between p-3 border rounded-lg">
+                  <div className="flex justify-between p-3 border border-border/40 rounded-lg bg-muted/30">
                     <div>
                       <p className="text-sm font-medium">Avg Purchase Quantity</p>
                       <p className="text-xs text-muted-foreground">Typical amount</p>
@@ -388,7 +388,7 @@ const PatternInsights = () => {
                     </div>
                   </div>
 
-                  <div className="flex justify-between p-3 border rounded-lg">
+                  <div className="flex justify-between p-3 border border-border/40 rounded-lg bg-muted/30">
                     <div>
                       <p className="text-sm font-medium">Daily Consumption</p>
                       <p className="text-xs text-muted-foreground">Usage per day</p>
@@ -404,7 +404,7 @@ const PatternInsights = () => {
               </Card>
 
               {/* Smart Prediction */}
-              <Card>
+              <Card className="border-border/40 bg-card/80 backdrop-blur-sm shadow-soft">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <TrendingUp className="w-5 h-5" />
@@ -413,13 +413,13 @@ const PatternInsights = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 border rounded-lg">
+                    <div className="p-4 border border-border/40 rounded-lg bg-muted/30">
                       <p className="text-sm text-muted-foreground mb-1">Suggested Purchase</p>
                       <p className="text-2xl font-bold">
                         {selectedItem.suggested_quantity?.toFixed(1) || 'N/A'} units
                       </p>
                     </div>
-                    <div className="p-4 border rounded-lg">
+                    <div className="p-4 border border-border/40 rounded-lg bg-muted/30">
                       <p className="text-sm text-muted-foreground mb-1">Urgency Level</p>
                       <div className="mt-2">
                         {getUrgencyBadge(selectedItem.urgency)}
