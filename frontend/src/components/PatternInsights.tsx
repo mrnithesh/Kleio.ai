@@ -81,10 +81,10 @@ const PatternInsights = () => {
 
   const getConfidenceColor = (confidence: string) => {
     switch (confidence) {
-      case 'high': return 'text-green-600';
-      case 'medium': return 'text-yellow-600';
-      case 'low': return 'text-gray-600';
-      default: return 'text-gray-400';
+      case 'high': return 'text-primary';
+      case 'medium': return 'text-accent';
+      case 'low': return 'text-muted-foreground';
+      default: return 'text-muted-foreground';
     }
   };
 

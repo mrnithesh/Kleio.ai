@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Package, Scale, Calendar as CalendarIcon, Save } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import api from '@/lib/api';
 
@@ -90,27 +90,38 @@ const EditItemDialog = ({ open, onOpenChange, item }: EditItemDialogProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Item</DialogTitle>
+          <DialogTitle className="flex items-center gap-2 text-foreground">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+              <Package className="w-4 h-4 text-primary" />
+            </div>
+            Edit Item
+          </DialogTitle>
           <DialogDescription>
             Update quantity and expiry date for {item.item_name}
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {/* Item Info (Read-only) */}
-          <div className="space-y-2">
-            <Label>Item</Label>
-            <div className="px-3 py-2 bg-muted rounded-md">
-              <p className="font-medium">{item.item_name}</p>
-              <p className="text-sm text-muted-foreground">
-                Category: {item.category} • Unit: {item.unit}
+          <div className="space-y-2.5">
+            <Label className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <Package className="w-4 h-4 text-primary" />
+              Item Information
+            </Label>
+            <div className="px-4 py-3 bg-muted/50 border border-border/40 rounded-lg">
+              <p className="font-semibold text-foreground capitalize">{item.item_name}</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                Category: <span className="capitalize">{item.category}</span> • Unit: {item.unit}
               </p>
             </div>
           </div>
 
           {/* Quantity */}
-          <div className="space-y-2">
-            <Label htmlFor="edit-quantity">Quantity *</Label>
+          <div className="space-y-2.5">
+            <Label htmlFor="edit-quantity" className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <Scale className="w-4 h-4 text-primary" />
+              Quantity *
+            </Label>
             <Input
               id="edit-quantity"
               type="number"
@@ -120,41 +131,55 @@ const EditItemDialog = ({ open, onOpenChange, item }: EditItemDialogProps) => {
               value={formData.quantity}
               onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
               disabled={updateItemMutation.isPending}
+              className="border-border/50 focus:border-primary/50"
             />
-            <p className="text-xs text-muted-foreground">
-              Current: {item.quantity} {item.unit}
+            <p className="text-xs text-muted-foreground flex items-center gap-1">
+              Current: <span className="font-medium text-foreground">{item.quantity} {item.unit}</span>
             </p>
           </div>
 
           {/* Expiry Date */}
-          <div className="space-y-2">
-            <Label htmlFor="edit-expiry">Expiry Date (Optional)</Label>
+          <div className="space-y-2.5">
+            <Label htmlFor="edit-expiry" className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <CalendarIcon className="w-4 h-4 text-primary" />
+              Expiry Date (Optional)
+            </Label>
             <Input
               id="edit-expiry"
               type="date"
               value={formData.expiry_date}
               onChange={(e) => setFormData({ ...formData, expiry_date: e.target.value })}
               disabled={updateItemMutation.isPending}
+              className="border-border/50 focus:border-primary/50"
             />
           </div>
 
-          <DialogFooter>
+          <DialogFooter className="gap-2 sm:gap-0">
             <Button
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
               disabled={updateItemMutation.isPending}
+              className="border-border/50 hover:border-primary/30 hover:bg-primary/5"
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={updateItemMutation.isPending}>
+            <Button 
+              type="submit" 
+              disabled={updateItemMutation.isPending}
+              variant="hero"
+              className="shadow-colored"
+            >
               {updateItemMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Updating...
                 </>
               ) : (
-                'Update Item'
+                <>
+                  <Save className="mr-2 h-4 w-4" />
+                  Update Item
+                </>
               )}
             </Button>
           </DialogFooter>

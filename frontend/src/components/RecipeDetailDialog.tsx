@@ -139,11 +139,11 @@ const RecipeDetailDialog = ({ open, onOpenChange, recipe, onSave }: RecipeDetail
 
   const getDifficultyColor = (difficulty: string) => {
     const colors: Record<string, string> = {
-      'easy': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100',
-      'medium': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100',
-      'hard': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100',
+      'easy': 'bg-primary/10 text-primary border-primary/20',
+      'medium': 'bg-accent/10 text-accent border-accent/20',
+      'hard': 'bg-secondary/10 text-secondary border-secondary/20',
     };
-    return colors[difficulty?.toLowerCase()] || 'bg-gray-100 text-gray-800';
+    return colors[difficulty?.toLowerCase()] || 'bg-muted text-muted-foreground border-border/50';
   };
 
   if (!recipe) return null;
@@ -160,7 +160,7 @@ const RecipeDetailDialog = ({ open, onOpenChange, recipe, onSave }: RecipeDetail
               <DialogTitle className="text-2xl">{recipe.recipe_name}</DialogTitle>
               <DialogDescription className="mt-1">{recipe.description}</DialogDescription>
             </div>
-            <Badge className={getDifficultyColor(recipe.difficulty)} variant="secondary">
+            <Badge className={`${getDifficultyColor(recipe.difficulty)} border rounded-lg px-2.5 py-1 text-xs font-medium`} variant="outline">
               {recipe.difficulty}
             </Badge>
           </div>
@@ -187,10 +187,10 @@ const RecipeDetailDialog = ({ open, onOpenChange, recipe, onSave }: RecipeDetail
             {/* Nutrition */}
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 p-4 bg-muted rounded-lg">
               <div className="text-center">
-                <div className="flex items-center justify-center gap-1 text-orange-600 mb-1">
+                <div className="flex items-center justify-center gap-1 text-secondary mb-1">
                   <Flame className="w-4 h-4" />
                 </div>
-                <div className="text-lg font-bold">{recipe.nutrition.calories}</div>
+                <div className="text-lg font-bold text-foreground">{recipe.nutrition.calories}</div>
                 <div className="text-xs text-muted-foreground">Calories</div>
               </div>
               <div className="text-center">
@@ -221,13 +221,13 @@ const RecipeDetailDialog = ({ open, onOpenChange, recipe, onSave }: RecipeDetail
               {availableIngredients.length > 0 && (
                 <div className="mb-4">
                   <p className="text-sm text-muted-foreground mb-2 flex items-center gap-2">
-                    <Check className="w-4 h-4 text-green-600" />
+                    <Check className="w-4 h-4 text-primary" />
                     You have ({availableIngredients.length})
                   </p>
                   <ul className="space-y-2">
                     {availableIngredients.map((ingredient, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm">
-                        <Check className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                         <span>
                           <span className="font-medium">{ingredient.item}</span>
                           {' - '}
@@ -250,13 +250,13 @@ const RecipeDetailDialog = ({ open, onOpenChange, recipe, onSave }: RecipeDetail
               {missingIngredients.length > 0 && (
                 <div>
                   <p className="text-sm text-muted-foreground mb-2 flex items-center gap-2">
-                    <X className="w-4 h-4 text-orange-600" />
+                    <X className="w-4 h-4 text-secondary" />
                     You need to buy ({missingIngredients.length})
                   </p>
                   <ul className="space-y-2">
                     {missingIngredients.map((ingredient, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm">
-                        <X className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                        <X className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
                         <span>
                           <span className="font-medium">{ingredient.item}</span>
                           {' - '}
@@ -294,14 +294,14 @@ const RecipeDetailDialog = ({ open, onOpenChange, recipe, onSave }: RecipeDetail
                 <Separator />
                 <div>
                   <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                    <Lightbulb className="w-5 h-5 text-yellow-600" />
+                    <Lightbulb className="w-5 h-5 text-accent" />
                     Tips
                   </h3>
                   <ul className="space-y-2">
                     {recipe.tips.map((tip, idx) => (
                       <li key={idx} className="flex gap-2 text-sm">
-                        <span className="text-yellow-600">•</span>
-                        <span>{tip}</span>
+                        <span className="text-accent font-bold">•</span>
+                        <span className="text-foreground">{tip}</span>
                       </li>
                     ))}
                   </ul>

@@ -322,10 +322,10 @@ const DashboardEnhanced = () => {
 
           {/* Shopping Tab */}
           <TabsContent value="shopping" className="space-y-6">
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <h2 className="text-2xl lg:text-3xl font-bold text-foreground leading-tight">Smart Shopping List</h2>
               <p className="text-base text-muted-foreground">AI-powered suggestions based on your needs</p>
-            </div>
+            </div> */}
             <SmartShoppingList />
           </TabsContent>
 

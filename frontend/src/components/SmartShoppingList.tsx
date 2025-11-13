@@ -88,44 +88,44 @@ const SmartShoppingList = () => {
 
   const getConfidenceBadge = (confidence: string) => {
     const colors = {
-      high: 'bg-green-500',
-      medium: 'bg-yellow-500',
-      low: 'bg-gray-500'
+      high: 'bg-primary',
+      medium: 'bg-accent',
+      low: 'bg-muted-foreground'
     };
-    return colors[confidence as keyof typeof colors] || 'bg-gray-500';
+    return colors[confidence as keyof typeof colors] || 'bg-muted-foreground';
   };
 
   const ShoppingItemCard = ({ item }: { item: ShoppingItem }) => (
-    <div className="flex items-start justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
+    <div className="flex items-start justify-between p-4 border border-border/40 rounded-xl bg-card/50 backdrop-blur-sm hover:bg-card/70 transition-all duration-200 group">
       <div className="flex-1">
-        <div className="flex items-center gap-2 mb-1">
-          <h4 className="font-semibold capitalize">{item.item_name}</h4>
-          <Badge variant="outline" className="text-xs">
+        <div className="flex items-center gap-2.5 mb-2">
+          <h4 className="font-semibold capitalize text-foreground">{item.item_name}</h4>
+          <Badge variant="outline" className="text-xs border-border/50">
             {item.category}
           </Badge>
           <div className={`w-2 h-2 rounded-full ${getConfidenceBadge(item.confidence)}`} 
                title={`${item.confidence} confidence`} />
         </div>
         
-        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
-          <span className="font-medium text-foreground">
+        <div className="flex items-center gap-4 text-sm mb-2.5">
+          <span className="font-semibold text-foreground">
             {item.suggested_quantity} {item.unit}
           </span>
           {item.current_stock > 0 && (
-            <span className="text-xs">
+            <span className="text-xs text-muted-foreground">
               Current: {item.current_stock} {item.unit}
             </span>
           )}
         </div>
 
-        <p className="text-sm text-muted-foreground flex items-center gap-1">
-          <Info className="w-3 h-3" />
+        <p className="text-sm text-muted-foreground flex items-center gap-1.5 mb-2">
+          <Info className="w-3.5 h-3.5" />
           {item.reason}
         </p>
 
         {item.predicted_depletion_date && (
-          <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-            <Calendar className="w-3 h-3" />
+          <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+            <Calendar className="w-3.5 h-3.5" />
             Expected depletion: {new Date(item.predicted_depletion_date).toLocaleDateString()}
           </p>
         )}
@@ -135,45 +135,58 @@ const SmartShoppingList = () => {
 
   if (error) {
     return (
-      <Alert variant="destructive">
-        <AlertCircle className="h-4 w-4" />
-        <AlertDescription>
-          Failed to load shopping list. Please try again later.
-        </AlertDescription>
-      </Alert>
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
+        <CardContent className="pt-6">
+          <div className="text-center py-12">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-destructive/10 flex items-center justify-center border border-destructive/20">
+              <AlertCircle className="w-8 h-8 text-destructive" />
+            </div>
+            <h3 className="text-lg lg:text-xl font-semibold text-foreground mb-2">Failed to Load Shopping List</h3>
+            <p className="text-sm text-muted-foreground">
+              Please try again later.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-3xl font-bold flex items-center gap-2">
-            <ShoppingCart className="w-8 h-8" />
-            Smart Shopping List
-          </h2>
-          <p className="text-muted-foreground mt-1">
-            AI-powered predictions based on your usage patterns
-          </p>
-        </div>
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+              <ShoppingCart className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-foreground">Smart Shopping List</h2>
+              <p className="text-sm lg:text-base text-muted-foreground mt-0.5">
+                AI-powered predictions based on your usage patterns
+              </p>
+            </div>
+          </div>
 
-        <Button
-          onClick={() => analyzePatternsMutation.mutate()}
-          disabled={analyzePatternsMutation.isPending}
-          variant="outline"
-        >
-          <RefreshCw className={`w-4 h-4 mr-2 ${analyzePatternsMutation.isPending ? 'animate-spin' : ''}`} />
-          Refresh Analysis
-        </Button>
+          <Button
+            onClick={() => analyzePatternsMutation.mutate()}
+            disabled={analyzePatternsMutation.isPending}
+            variant="outline"
+            className="border-border/50 hover:border-primary/30 hover:bg-primary/5"
+          >
+            <RefreshCw className={`w-4 h-4 mr-2 ${analyzePatternsMutation.isPending ? 'animate-spin' : ''}`} />
+            Refresh Analysis
+          </Button>
+        </div>
       </div>
 
       {/* Filters */}
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Button
           variant={selectedFilter === null ? 'default' : 'outline'}
           onClick={() => setSelectedFilter(null)}
           size="sm"
+          className={selectedFilter === null ? '' : 'border-border/50 hover:border-primary/30 hover:bg-primary/5'}
         >
           All Items
         </Button>
@@ -181,6 +194,7 @@ const SmartShoppingList = () => {
           variant={selectedFilter === 'urgent' ? 'default' : 'outline'}
           onClick={() => setSelectedFilter('urgent')}
           size="sm"
+          className={selectedFilter === 'urgent' ? '' : 'border-border/50 hover:border-primary/30 hover:bg-primary/5'}
         >
           <AlertCircle className="w-4 h-4 mr-1" />
           Urgent
@@ -189,6 +203,7 @@ const SmartShoppingList = () => {
           variant={selectedFilter === 'this_week' ? 'default' : 'outline'}
           onClick={() => setSelectedFilter('this_week')}
           size="sm"
+          className={selectedFilter === 'this_week' ? '' : 'border-border/50 hover:border-primary/30 hover:bg-primary/5'}
         >
           <Calendar className="w-4 h-4 mr-1" />
           This Week
@@ -197,6 +212,7 @@ const SmartShoppingList = () => {
           variant={selectedFilter === 'later' ? 'default' : 'outline'}
           onClick={() => setSelectedFilter('later')}
           size="sm"
+          className={selectedFilter === 'later' ? '' : 'border-border/50 hover:border-primary/30 hover:bg-primary/5'}
         >
           <Clock className="w-4 h-4 mr-1" />
           Later
@@ -224,43 +240,43 @@ const SmartShoppingList = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-border/40 shadow-soft bg-card/80 backdrop-blur-sm">
+            <Card className="border-border/40 shadow-soft bg-card/80 backdrop-blur-sm border-l-4 border-l-secondary">
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-1">
-                  <AlertCircle className="w-4 h-4 text-red-500" />
+                  <AlertCircle className="w-4 h-4 text-secondary" />
                   Urgent
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-red-500">
+                <div className="text-2xl font-bold text-secondary">
                   {shoppingList.urgent.length}
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-border/40 shadow-soft bg-card/80 backdrop-blur-sm">
+            <Card className="border-border/40 shadow-soft bg-card/80 backdrop-blur-sm border-l-4 border-l-accent">
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-1">
-                  <Calendar className="w-4 h-4 text-orange-500" />
+                  <Calendar className="w-4 h-4 text-accent" />
                   This Week
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-orange-500">
+                <div className="text-2xl font-bold text-accent">
                   {shoppingList.this_week.length}
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-border/40 shadow-soft bg-card/80 backdrop-blur-sm">
+            <Card className="border-border/40 shadow-soft bg-card/80 backdrop-blur-sm border-l-4 border-l-primary">
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-1">
-                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                  <CheckCircle2 className="w-4 h-4 text-primary" />
                   Later
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-green-500">
+                <div className="text-2xl font-bold text-primary">
                   {shoppingList.later.length}
                 </div>
               </CardContent>
@@ -269,9 +285,9 @@ const SmartShoppingList = () => {
 
           {/* Urgent Items */}
           {shoppingList.urgent.length > 0 && (
-            <Card>
+            <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm border-l-4 border-l-secondary">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-red-600">
+                <CardTitle className="flex items-center gap-2 text-secondary">
                   <AlertCircle className="w-5 h-5" />
                   Urgent - Buy Today/Tomorrow
                 </CardTitle>
@@ -289,9 +305,9 @@ const SmartShoppingList = () => {
 
           {/* This Week Items */}
           {shoppingList.this_week.length > 0 && (
-            <Card>
+            <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm border-l-4 border-l-accent">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-orange-600">
+                <CardTitle className="flex items-center gap-2 text-accent">
                   <Calendar className="w-5 h-5" />
                   This Week - Buy Within 7 Days
                 </CardTitle>
@@ -309,9 +325,9 @@ const SmartShoppingList = () => {
 
           {/* Later Items */}
           {shoppingList.later.length > 0 && (
-            <Card>
+            <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm border-l-4 border-l-primary">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-green-600">
+                <CardTitle className="flex items-center gap-2 text-primary">
                   <Clock className="w-5 h-5" />
                   Later - No Immediate Rush
                 </CardTitle>
@@ -329,15 +345,17 @@ const SmartShoppingList = () => {
 
           {/* Empty State */}
           {shoppingList.total_items === 0 && (
-            <Card>
+            <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
               <CardContent className="py-12 text-center">
-                <TrendingUp className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-lg font-semibold mb-2">No Shopping Predictions Yet</h3>
-                <p className="text-sm text-muted-foreground mb-4">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                  <TrendingUp className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-foreground">No Shopping Predictions Yet</h3>
+                <p className="text-sm text-muted-foreground mb-6 max-w-md mx-auto">
                   Add items to your inventory and mark them as used to build usage patterns.
                   After 2-3 cycles, we'll generate smart shopping predictions for you!
                 </p>
-                <Button onClick={() => analyzePatternsMutation.mutate()}>
+                <Button onClick={() => analyzePatternsMutation.mutate()} variant="hero" className="shadow-colored">
                   Analyze Patterns Now
                 </Button>
               </CardContent>
