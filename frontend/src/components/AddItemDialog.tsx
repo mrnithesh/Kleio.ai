@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Package, Tag, Scale, Calendar as CalendarIcon, Plus } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import api from '@/lib/api';
 
@@ -103,34 +103,46 @@ const AddItemDialog = ({ open, onOpenChange }: AddItemDialogProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Add New Item</DialogTitle>
+          <DialogTitle className="flex items-center gap-2 text-foreground">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+              <Plus className="w-4 h-4 text-primary" />
+            </div>
+            Add New Item
+          </DialogTitle>
           <DialogDescription>
             Add an item to your inventory manually
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {/* Item Name */}
-          <div className="space-y-2">
-            <Label htmlFor="item_name">Item Name *</Label>
+          <div className="space-y-2.5">
+            <Label htmlFor="item_name" className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <Package className="w-4 h-4 text-primary" />
+              Item Name *
+            </Label>
             <Input
               id="item_name"
               placeholder="e.g., Tomatoes, Rice, Milk"
               value={formData.item_name}
               onChange={(e) => setFormData({ ...formData, item_name: e.target.value })}
               disabled={addItemMutation.isPending}
+              className="border-border/50 focus:border-primary/50"
             />
           </div>
 
           {/* Category */}
-          <div className="space-y-2">
-            <Label htmlFor="category">Category *</Label>
+          <div className="space-y-2.5">
+            <Label htmlFor="category" className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <Tag className="w-4 h-4 text-primary" />
+              Category *
+            </Label>
             <Select
               value={formData.category}
               onValueChange={(value) => setFormData({ ...formData, category: value })}
               disabled={addItemMutation.isPending}
             >
-              <SelectTrigger>
+              <SelectTrigger className="border-border/50 focus:border-primary/50">
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
               <SelectContent>
@@ -145,8 +157,11 @@ const AddItemDialog = ({ open, onOpenChange }: AddItemDialogProps) => {
 
           {/* Quantity & Unit */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="quantity">Quantity *</Label>
+            <div className="space-y-2.5">
+              <Label htmlFor="quantity" className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <Scale className="w-4 h-4 text-primary" />
+                Quantity *
+              </Label>
               <Input
                 id="quantity"
                 type="number"
@@ -156,16 +171,17 @@ const AddItemDialog = ({ open, onOpenChange }: AddItemDialogProps) => {
                 value={formData.quantity}
                 onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                 disabled={addItemMutation.isPending}
+                className="border-border/50 focus:border-primary/50"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="unit">Unit *</Label>
+            <div className="space-y-2.5">
+              <Label htmlFor="unit" className="text-sm font-medium text-foreground">Unit *</Label>
               <Select
                 value={formData.unit}
                 onValueChange={(value) => setFormData({ ...formData, unit: value })}
                 disabled={addItemMutation.isPending}
               >
-                <SelectTrigger>
+                <SelectTrigger className="border-border/50 focus:border-primary/50">
                   <SelectValue placeholder="Select unit" />
                 </SelectTrigger>
                 <SelectContent>
@@ -180,34 +196,47 @@ const AddItemDialog = ({ open, onOpenChange }: AddItemDialogProps) => {
           </div>
 
           {/* Expiry Date */}
-          <div className="space-y-2">
-            <Label htmlFor="expiry_date">Expiry Date (Optional)</Label>
+          <div className="space-y-2.5">
+            <Label htmlFor="expiry_date" className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <CalendarIcon className="w-4 h-4 text-primary" />
+              Expiry Date (Optional)
+            </Label>
             <Input
               id="expiry_date"
               type="date"
               value={formData.expiry_date}
               onChange={(e) => setFormData({ ...formData, expiry_date: e.target.value })}
               disabled={addItemMutation.isPending}
+              className="border-border/50 focus:border-primary/50"
             />
           </div>
 
-          <DialogFooter>
+          <DialogFooter className="gap-2 sm:gap-0">
             <Button
               type="button"
               variant="outline"
               onClick={handleCancel}
               disabled={addItemMutation.isPending}
+              className="border-border/50 hover:border-primary/30 hover:bg-primary/5"
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={addItemMutation.isPending}>
+            <Button 
+              type="submit" 
+              disabled={addItemMutation.isPending}
+              variant="hero"
+              className="shadow-colored"
+            >
               {addItemMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Adding...
                 </>
               ) : (
-                'Add Item'
+                <>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Item
+                </>
               )}
             </Button>
           </DialogFooter>

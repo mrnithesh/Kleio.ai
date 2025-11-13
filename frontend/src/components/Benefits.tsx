@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { IndianRupee, Clock, Leaf, Heart } from "lucide-react";
+import { IndianRupee, Leaf, Heart } from "lucide-react";
 
 const benefits = [
   {
@@ -8,7 +8,8 @@ const benefits = [
     description: "Smart shopping, bulk buying, and waste reduction translate to real savings",
     stat: "30% Cost Reduction",
     color: "text-primary",
-    gradient: "from-primary/20 to-primary/5",
+    bgColor: "bg-primary/5",
+    borderColor: "border-primary/20",
   },
   {
     icon: Leaf,
@@ -16,51 +17,52 @@ const benefits = [
     description: "Smart consumption tracking and recipe suggestions mean fresh food gets used",
     stat: "Eco-Friendly Living",
     color: "text-accent",
-    gradient: "from-accent/20 to-accent/5",
+    bgColor: "bg-accent/5",
+    borderColor: "border-accent/20",
   },
   {
     icon: Heart,
     title: "Peace of Mind",
     description: "Medicine tracking, emergency prep, and festival planning - all handled",
     stat: "Stress-Free Home",
-    color: "text-primary",
-    gradient: "from-primary/20 to-primary/5",
+    color: "text-secondary",
+    bgColor: "bg-secondary/5",
+    borderColor: "border-secondary/20",
   },
 ];
 
 export const Benefits = () => {
   return (
-    <section className="py-24 bg-muted/30">
+    <section className="py-32 bg-gradient-subtle texture-overlay">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4 animate-fade-in">
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
+        <div className="text-center max-w-3xl mx-auto mb-20 space-y-5 animate-fade-in">
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground leading-tight">
             Real Impact,
             <span className="text-primary"> Measured Results</span>
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed">
             Join thousands of Indian families already transforming their households
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {benefits.map((benefit, index) => (
             <Card 
               key={index}
-              className="group hover:shadow-medium transition-smooth border-border/50 animate-scale-in overflow-hidden"
+              className={`group hover:shadow-medium transition-all duration-300 border ${benefit.borderColor} bg-card hover:-translate-y-1 animate-scale-in overflow-hidden`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className={`h-2 bg-gradient-to-r ${benefit.gradient}`} />
-              <CardContent className="p-6 space-y-4">
-                <div className="w-14 h-14 rounded-2xl gradient-feature flex items-center justify-center group-hover:scale-110 transition-smooth">
-                  <benefit.icon className={`w-7 h-7 ${benefit.color}`} />
+              <CardContent className="p-6 lg:p-8 space-y-5">
+                <div className={`w-16 h-16 rounded-xl ${benefit.bgColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                  <benefit.icon className={`w-8 h-8 ${benefit.color}`} />
                 </div>
                 
-                <div className="space-y-2">
-                  <div className={`text-sm font-semibold ${benefit.color}`}>
+                <div className="space-y-3">
+                  <div className={`text-xs font-semibold uppercase tracking-wide ${benefit.color}`}>
                     {benefit.stat}
                   </div>
-                  <h3 className="text-xl font-bold">{benefit.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <h3 className="text-xl lg:text-2xl font-bold text-foreground leading-tight">{benefit.title}</h3>
+                  <p className="text-sm lg:text-base text-muted-foreground leading-relaxed">
                     {benefit.description}
                   </p>
                 </div>

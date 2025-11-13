@@ -1,73 +1,94 @@
-# Welcome to your Lovable project
+# Kleio.ai - AI-Powered Household Management
 
-## Project info
+An intelligent household inventory management system designed specifically for Indian families. Manage your inventory, plan meals, track usage patterns, and get AI-powered suggestions tailored to your household needs.
 
-**URL**: https://lovable.dev/projects/17f5c542-181e-4e47-9a31-41630ea3cbcb
+## Features
 
-## How can I edit this code?
+- **Smart Inventory Management**: Track household items with expiry dates and quantity monitoring
+- **AI-Powered Predictions**: Get usage pattern insights and shopping recommendations
+- **Receipt Scanning**: Automatically extract items from receipts using OCR
+- **Recipe Generation**: Generate recipes based on available ingredients
+- **Pattern Insights**: Track consumption patterns and predict when items will run out
+- **Multi-language Support**: Available in Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Gujarati, and Marathi
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **Frontend**: React, TypeScript, Vite
+- **UI Components**: shadcn/ui, Tailwind CSS
+- **Backend**: FastAPI (Python)
+- **Database**: PostgreSQL
+- **Authentication**: Firebase Auth
+- **State Management**: TanStack Query (React Query)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/17f5c542-181e-4e47-9a31-41630ea3cbcb) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js (v18 or higher) - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- npm or yarn
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Installation
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Step 1: Clone the repository
+git clone https://github.com/mrnithesh/Kleio.ai.git
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Step 2: Navigate to the project directory
+cd kleio/frontend
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Step 3: Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Step 4: Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Available Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+frontend/
+├── src/
+│   ├── components/     # Reusable React components
+│   ├── pages/          # Page components
+│   ├── contexts/       # React contexts (Auth, etc.)
+│   ├── lib/            # Utility functions and API client
+│   ├── hooks/          # Custom React hooks
+│   └── assets/         # Static assets
+├── public/             # Public assets (logo, favicon)
+└── index.html          # HTML entry point
+```
 
-This project is built with:
+## Development
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Working with the Codebase
 
-## How can I deploy this project?
+You can edit files using:
+- Your preferred IDE (VS Code, WebStorm, etc.)
+- GitHub's web editor
+- GitHub Codespaces
 
-Simply open [Lovable](https://lovable.dev/projects/17f5c542-181e-4e47-9a31-41630ea3cbcb) and click on Share -> Publish.
+Changes will be reflected immediately in the development server.
 
-## Can I connect a custom domain to my Lovable project?
+## Deployment
 
-Yes, you can!
+Build the project for production:
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```sh
+npm run build
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+The `dist` folder will contain the production-ready files that can be deployed to any static hosting service.
+
+## Contributing
+
+This project is maintained by Nithesh. For contributions, please reach out through GitHub.
+

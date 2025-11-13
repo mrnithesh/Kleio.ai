@@ -181,7 +181,7 @@ const ReceiptScanner = ({ onSuccess }: ReceiptScannerProps) => {
     <div className="space-y-6">
       {/* Upload Section */}
       {!scanComplete && (
-        <Card>
+        <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
           <CardContent className="pt-6">
             <div className="space-y-4">
               {/* File Input */}
@@ -256,13 +256,13 @@ const ReceiptScanner = ({ onSuccess }: ReceiptScannerProps) => {
 
       {/* Detected Items Section */}
       {scanComplete && detectedItems.length > 0 && (
-        <Card>
+        <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
           <CardContent className="pt-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-green-600" />
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
                     Detected Items
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -275,10 +275,10 @@ const ReceiptScanner = ({ onSuccess }: ReceiptScannerProps) => {
               </div>
 
               {/* Items Table */}
-              <div className="border rounded-lg overflow-hidden">
+              <div className="border border-border/40 rounded-xl overflow-hidden shadow-soft bg-card/50">
                 <Table>
                   <TableHeader>
-                    <TableRow>
+                    <TableRow className="bg-muted/40 border-b border-border/40">
                       <TableHead>Item Name</TableHead>
                       <TableHead>Category</TableHead>
                       <TableHead className="text-right">Quantity</TableHead>
@@ -289,7 +289,7 @@ const ReceiptScanner = ({ onSuccess }: ReceiptScannerProps) => {
                   </TableHeader>
                   <TableBody>
                     {detectedItems.map((item, index) => (
-                      <TableRow key={index}>
+                      <TableRow key={index} className="border-b border-border/20 hover:bg-muted/30 transition-colors">
                         <TableCell>
                           {editingIndex === index ? (
                             <Input
@@ -412,7 +412,7 @@ const ReceiptScanner = ({ onSuccess }: ReceiptScannerProps) => {
 
       {/* No Items Found */}
       {scanComplete && detectedItems.length === 0 && (
-        <Card>
+        <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
           <CardContent className="pt-6">
             <div className="text-center py-12">
               <XCircle className="w-16 h-16 mx-auto text-muted-foreground mb-4" />

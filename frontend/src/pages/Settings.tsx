@@ -16,13 +16,18 @@ const SettingsPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-10">
+    <div className="min-h-screen gradient-subtle texture-overlay">
+      <header className="border-b border-border/40 sticky top-0 bg-background/95 backdrop-blur-md z-10 shadow-soft">
         <div className="container mx-auto px-4 py-4 flex items-center gap-4">
-          <Button variant="outline" size="icon" onClick={() => navigate('/app')}>
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={() => navigate('/app')}
+            className="border-border/50 hover:border-primary/30 hover:bg-primary/5"
+          >
             <ChevronLeft className="w-4 h-4" />
           </Button>
-          <h1 className="text-xl font-bold">Settings</h1>
+          <h1 className="text-xl font-bold text-foreground">Settings</h1>
         </div>
       </header>
 
@@ -31,7 +36,11 @@ const SettingsPage = () => {
           <nav className="flex flex-col gap-2">
             <Button
               variant={activeSection === 'profile' ? 'secondary' : 'ghost'}
-              className="justify-start"
+              className={`justify-start transition-all ${
+                activeSection === 'profile' 
+                  ? 'bg-primary/10 text-primary border-primary/20 border' 
+                  : 'hover:bg-primary/5'
+              }`}
               onClick={() => setActiveSection('profile')}
             >
               <User className="w-4 h-4 mr-2" />
@@ -39,7 +48,11 @@ const SettingsPage = () => {
             </Button>
             <Button
               variant={activeSection === 'telegram' ? 'secondary' : 'ghost'}
-              className="justify-start"
+              className={`justify-start transition-all ${
+                activeSection === 'telegram' 
+                  ? 'bg-primary/10 text-primary border-primary/20 border' 
+                  : 'hover:bg-primary/5'
+              }`}
               onClick={() => setActiveSection('telegram')}
             >
               <Bot className="w-4 h-4 mr-2" />
@@ -47,7 +60,11 @@ const SettingsPage = () => {
             </Button>
             <Button
               variant={activeSection === 'account' ? 'secondary' : 'ghost'}
-              className="justify-start"
+              className={`justify-start transition-all ${
+                activeSection === 'account' 
+                  ? 'bg-primary/10 text-primary border-primary/20 border' 
+                  : 'hover:bg-primary/5'
+              }`}
               onClick={() => setActiveSection('account')}
             >
               <LogOut className="w-4 h-4 mr-2" />
@@ -77,19 +94,19 @@ const ProfileSection = () => {
 
   if (isLoading) {
     return (
-      <Card>
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle>Your Profile</CardTitle>
+          <CardTitle className="text-foreground">Your Profile</CardTitle>
           <CardDescription>This information helps personalize your experience.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Skeleton className="h-4 w-1/4" />
-            <Skeleton className="h-6 w-1/2" />
+            <Skeleton className="h-4 w-1/4 bg-muted/50" />
+            <Skeleton className="h-6 w-1/2 bg-muted/50" />
           </div>
           <div className="space-y-2">
-            <Skeleton className="h-4 w-1/4" />
-            <Skeleton className="h-6 w-1/2" />
+            <Skeleton className="h-4 w-1/4 bg-muted/50" />
+            <Skeleton className="h-6 w-1/2 bg-muted/50" />
           </div>
         </CardContent>
       </Card>
@@ -97,37 +114,54 @@ const ProfileSection = () => {
   }
 
   if (isError) {
-    return <Card><CardHeader><CardTitle>Error</CardTitle></CardHeader><CardContent><p>Could not load profile: {error.message}</p></CardContent></Card>;
+    return (
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
+        <CardHeader>
+          <CardTitle className="text-destructive">Error</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground">Could not load profile: {error.message}</p>
+        </CardContent>
+      </Card>
+    );
   }
 
   return (
-    <Card>
+    <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
       <CardHeader>
-        <CardTitle>Your Profile</CardTitle>
+        <CardTitle className="text-foreground">Your Profile</CardTitle>
         <CardDescription>This information helps personalize your experience.</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex justify-between items-center">
-          <span className="text-muted-foreground">Household Size</span>
-          <span className="font-medium">{user?.household_size} people</span>
+      <CardContent className="space-y-5">
+        <div className="flex justify-between items-center p-3 border border-border/40 rounded-lg bg-muted/30">
+          <span className="text-muted-foreground font-medium">Household Size</span>
+          <span className="font-semibold text-foreground">{user?.household_size} people</span>
         </div>
-        <div className="flex justify-between items-center">
-          <span className="text-muted-foreground">Language</span>
-          <span className="font-medium">{user?.language_preference}</span>
+        <div className="flex justify-between items-center p-3 border border-border/40 rounded-lg bg-muted/30">
+          <span className="text-muted-foreground font-medium">Language</span>
+          <span className="font-semibold text-foreground capitalize">{user?.language_preference}</span>
         </div>
-        <div className="flex justify-between items-center">
-          <span className="text-muted-foreground">Region</span>
-          <span className="font-medium">{user?.region}</span>
+        <div className="flex justify-between items-center p-3 border border-border/40 rounded-lg bg-muted/30">
+          <span className="text-muted-foreground font-medium">Region</span>
+          <span className="font-semibold text-foreground capitalize">{user?.region}</span>
         </div>
-        <div>
-          <span className="text-muted-foreground">Dietary Preferences</span>
-          <div className="flex flex-wrap gap-2 mt-2">
+        <div className="space-y-2">
+          <span className="text-sm font-medium text-muted-foreground">Dietary Preferences</span>
+          <div className="flex flex-wrap gap-2 pt-2">
             {user?.dietary_preferences && Object.keys(user.dietary_preferences).length > 0 ? (
               Object.entries(user.dietary_preferences).map(([pref, enabled]) => (
-                enabled && <Badge key={pref} variant="secondary">{pref.replace(/_/g, ' ')}</Badge>
+                enabled && (
+                  <Badge 
+                    key={pref} 
+                    variant="outline" 
+                    className="border-border/50 bg-primary/5 text-primary"
+                  >
+                    {pref.replace(/_/g, ' ')}
+                  </Badge>
+                )
               ))
             ) : (
-              <p className="text-sm">No preferences set.</p>
+              <p className="text-sm text-muted-foreground">No preferences set.</p>
             )}
           </div>
         </div>
@@ -169,58 +203,88 @@ const TelegramSection = () => {
 
   if (isLoadingProfile) {
     return (
-      <Card>
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2"><Bot /> Connect to Telegram</CardTitle>
+          <CardTitle className="flex items-center gap-2 text-foreground">
+            <Bot className="w-5 h-5 text-primary" />
+            Connect to Telegram
+          </CardTitle>
           <CardDescription>Checking connection status...</CardDescription>
         </CardHeader>
         <CardContent>
-          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-10 w-full bg-muted/50" />
         </CardContent>
       </Card>
     );
   }
 
   if (isError) {
-    return <Card><CardHeader><CardTitle>Error</CardTitle></CardHeader><CardContent><p>Could not check Telegram status: {error.message}</p></CardContent></Card>;
+    return (
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
+        <CardHeader>
+          <CardTitle className="text-destructive">Error</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground">Could not check Telegram status: {error.message}</p>
+        </CardContent>
+      </Card>
+    );
   }
 
   return (
-    <Card>
+    <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2"><Bot /> Connect to Telegram</CardTitle>
+        <CardTitle className="flex items-center gap-2 text-foreground">
+          <Bot className="w-5 h-5 text-primary" />
+          Connect to Telegram
+        </CardTitle>
         <CardDescription>Link your account to manage your inventory via the Kleio.ai Telegram bot.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {user?.telegram_id ? (
           <div className="space-y-4">
-            <div className="p-4 bg-green-100 dark:bg-green-900/50 border border-green-200 dark:border-green-800 rounded-lg text-center">
-              <h3 className="font-semibold text-green-800 dark:text-green-200">Account Connected</h3>
-              <p className="text-sm text-green-700 dark:text-green-300">Your account is linked to Telegram ID: {user.telegram_id}</p>
+            <div className="p-5 bg-primary/10 border border-primary/20 rounded-xl text-center">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/20 flex items-center justify-center">
+                <Bot className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="font-semibold text-primary mb-1">Account Connected</h3>
+              <p className="text-sm text-muted-foreground">Your account is linked to Telegram ID: {user.telegram_id}</p>
             </div>
-            <Button variant="outline" disabled>Disconnect (Coming Soon)</Button>
+            <Button variant="outline" disabled className="w-full border-border/50">Disconnect (Coming Soon)</Button>
           </div>
         ) : (
           <>
-            <div>
-              <h4 className="font-semibold mb-2">How to Connect:</h4>
-              <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
+            <div className="space-y-3">
+              <h4 className="font-semibold text-foreground mb-3">How to Connect:</h4>
+              <ol className="list-decimal list-inside space-y-2.5 text-sm text-muted-foreground pl-2">
                 <li>Open Telegram and search for the <span className="font-semibold text-primary">@KleioAI_bot</span>.</li>
-                <li>Send the <code>/start</code> command to the bot.</li>
+                <li>Send the <code className="px-1.5 py-0.5 bg-muted rounded text-foreground font-mono text-xs">/start</code> command to the bot.</li>
                 <li>The bot will reply with a unique 6-character verification code.</li>
                 <li>Enter the code below and click connect.</li>
               </ol>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Input
                 placeholder="XXXXXX"
                 value={code}
                 onChange={(e) => setCode(e.target.value.toUpperCase())}
                 maxLength={6}
-                className="text-center text-lg tracking-[.2em] font-mono"
+                className="text-center text-lg tracking-[.2em] font-mono border-border/50 focus:border-primary/50"
               />
-              <Button onClick={handleConnect} disabled={isConnecting} className="w-full">
-                {isConnecting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Connecting...</> : 'Connect Account'}
+              <Button 
+                onClick={handleConnect} 
+                disabled={isConnecting} 
+                className="w-full"
+                variant="hero"
+              >
+                {isConnecting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Connecting...
+                  </>
+                ) : (
+                  'Connect Account'
+                )}
               </Button>
             </div>
           </>
@@ -246,13 +310,20 @@ const AccountSection = () => {
   };
 
   return (
-    <Card>
+    <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
       <CardHeader>
-        <CardTitle>Account Actions</CardTitle>
+        <CardTitle className="text-foreground">Account Actions</CardTitle>
         <CardDescription>Manage your account and session.</CardDescription>
       </CardHeader>
       <CardContent>
-        <Button variant="destructive" onClick={handleSignOut}>Sign Out</Button>
+        <Button 
+          variant="destructive" 
+          onClick={handleSignOut}
+          className="w-full sm:w-auto"
+        >
+          <LogOut className="w-4 h-4 mr-2" />
+          Sign Out
+        </Button>
       </CardContent>
     </Card>
   );

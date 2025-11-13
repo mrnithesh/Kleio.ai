@@ -163,11 +163,13 @@ const SavedRecipes = () => {
 
   if (error) {
     return (
-      <Card>
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
         <CardContent className="pt-6">
           <div className="text-center py-12">
-            <AlertCircle className="w-12 h-12 mx-auto text-destructive mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Failed to Load Recipes</h3>
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-destructive/10 flex items-center justify-center border border-destructive/20">
+              <AlertCircle className="w-8 h-8 text-destructive" />
+            </div>
+            <h3 className="text-lg lg:text-xl font-semibold text-foreground mb-2">Failed to Load Recipes</h3>
             <p className="text-sm text-muted-foreground">
               {(error as any).message || 'Please try again later.'}
             </p>
@@ -179,12 +181,14 @@ const SavedRecipes = () => {
 
   if (!savedRecipes || savedRecipes.length === 0) {
     return (
-      <Card>
+      <Card className="border-border/40 shadow-medium bg-card/80 backdrop-blur-sm">
         <CardContent className="pt-6">
-          <div className="text-center py-12">
-            <BookOpen className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No Saved Recipes Yet</h3>
-            <p className="text-sm text-muted-foreground mb-6">
+          <div className="text-center py-12 lg:py-16">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+              <BookOpen className="w-10 h-10 text-primary" />
+            </div>
+            <h3 className="text-xl lg:text-2xl font-bold text-foreground mb-2">No Saved Recipes Yet</h3>
+            <p className="text-base text-muted-foreground mb-8 max-w-md mx-auto">
               Generate recipes and click "Save Recipe" to build your collection
             </p>
           </div>
@@ -211,14 +215,14 @@ const SavedRecipes = () => {
             const canCook = availability.percentage >= 80;
 
             return (
-              <Card key={recipe.id} className="hover:shadow-lg transition-shadow">
+              <Card key={recipe.id} className="hover:shadow-medium hover:-translate-y-1 transition-all duration-300 border-border/40 bg-card/80 backdrop-blur-sm shadow-soft">
                 <CardHeader>
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1">
                       <CardTitle className="text-lg flex items-center gap-2">
                         {recipe.recipe_name}
                         {recipe.is_favorite && (
-                          <Heart className="w-4 h-4 fill-red-500 text-red-500" />
+                          <Heart className="w-4 h-4 fill-destructive text-destructive" />
                         )}
                       </CardTitle>
                       <p className="text-sm text-muted-foreground mt-1">
@@ -247,24 +251,29 @@ const SavedRecipes = () => {
                   {/* Ingredient Availability */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="font-medium">Ingredients</span>
-                      <span className={`${canCook ? 'text-green-600' : 'text-orange-600'} font-medium flex items-center gap-1`}>
+                      <span className="font-medium text-foreground">Ingredients</span>
+                      <span className={`font-semibold flex items-center gap-1.5 ${
+                        canCook ? 'text-primary' : 'text-secondary'
+                      }`}>
                         {canCook ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
                         {availability.available}/{availability.total} available
                       </span>
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+                    <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
                       <div 
-                        className={`h-2 rounded-full ${canCook ? 'bg-green-600' : 'bg-orange-600'}`}
+                        className={`h-2 rounded-full transition-all ${
+                          canCook ? 'bg-primary' : 'bg-secondary'
+                        }`}
                         style={{ width: `${availability.percentage}%` }}
                       />
                     </div>
 
                     {canCook ? (
-                      <p className="text-xs text-green-600 font-medium">
-                        ✓ You can cook this now!
+                      <p className="text-xs text-primary font-semibold flex items-center gap-1.5">
+                        <Check className="w-3.5 h-3.5" />
+                        You can cook this now!
                       </p>
                     ) : (
                       <p className="text-xs text-muted-foreground">
@@ -295,8 +304,9 @@ const SavedRecipes = () => {
                       size="icon"
                       onClick={() => toggleFavoriteMutation.mutate(recipe.id)}
                       title={recipe.is_favorite ? "Remove from favorites" : "Add to favorites"}
+                      className={recipe.is_favorite ? 'hover:bg-destructive/10 hover:text-destructive' : ''}
                     >
-                      <Heart className={`w-4 h-4 ${recipe.is_favorite ? 'fill-red-500 text-red-500' : ''}`} />
+                      <Heart className={`w-4 h-4 transition-colors ${recipe.is_favorite ? 'fill-destructive text-destructive' : ''}`} />
                     </Button>
                     <Button
                       variant="ghost"

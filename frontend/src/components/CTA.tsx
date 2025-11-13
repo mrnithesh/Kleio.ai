@@ -1,63 +1,77 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const CTA = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  
   return (
-    <section className="py-24 relative overflow-hidden">
-      {/* Gradient background */}
-      <div className="absolute inset-0 gradient-hero opacity-90" />
+    <section className="py-32 relative overflow-hidden bg-gradient-hero">
+      {/* Subtle overlay for better text contrast */}
+      <div className="absolute inset-0 bg-foreground/5" />
       
-      {/* Animated elements */}
-      <div className="absolute top-20 left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-20 right-20 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-float" style={{ animationDelay: "1.5s" }} />
+      {/* Subtle pattern */}
+      <div className="absolute inset-0 texture-overlay opacity-20" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
-            <Sparkles className="w-4 h-4 text-white" />
-            <span className="text-sm font-medium text-white">Limited Early Access</span>
-          </div>
-
-          <h2 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
-            Join the Waitlist for
+        <div className="max-w-4xl mx-auto text-center space-y-10 animate-fade-in">
+          <h2 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
+            Ready to Transform
             <br />
-            Smarter Home Management
+            <span className="text-primary">Your Home Management?</span>
           </h2>
 
-          <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-            Be among the first Indian families to experience AI-powered household intelligence. 
-            Early access members get lifetime premium benefits.
+          <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Join thousands of Indian families already using Kleio to save time, reduce waste, and bring peace of mind to their households.
           </p>
 
-          {/* Waitlist form */}
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <Input 
-              type="email" 
-              placeholder="Enter your email"
-              className="bg-white/95 border-white/20 h-12 text-base backdrop-blur-sm"
-            />
-            <Button 
-              size="lg" 
-              className="bg-white text-primary hover:bg-white/90 shadow-strong h-12 px-8 font-semibold group"
-            >
-              Get Early Access
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
+          {/* CTA Button - Show different based on auth status */}
+          {user ? (
+            <div className="flex justify-center">
+              <Button 
+                size="lg" 
+                variant="hero"
+                className="h-12 lg:h-14 px-8 font-semibold shadow-colored hover:shadow-medium group"
+                onClick={() => navigate('/app')}
+              >
+                Go to Dashboard
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+          ) : (
+            <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+              <Input 
+                type="email" 
+                placeholder="Enter your email address"
+                className="bg-background border-border h-12 lg:h-14 text-base shadow-soft focus:shadow-medium transition-all"
+              />
+              <Button 
+                size="lg" 
+                variant="hero"
+                className="h-12 lg:h-14 px-8 font-semibold shadow-colored hover:shadow-medium group"
+                onClick={() => navigate('/signup')}
+              >
+                Get Started Free
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+          )}
 
           {/* Trust indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-8 pt-8 text-white/80">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent" />
+          <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-8 pt-6">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <CheckCircle2 className="w-4 h-4 text-primary" />
               <span className="text-sm">No credit card required</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent" />
-              <span className="text-sm">Early bird pricing</span>
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <CheckCircle2 className="w-4 h-4 text-primary" />
+              <span className="text-sm">Free forever plan available</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent" />
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <CheckCircle2 className="w-4 h-4 text-primary" />
               <span className="text-sm">Cancel anytime</span>
             </div>
           </div>

@@ -17,36 +17,41 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 15%;
 
-    --primary: 145 65% 42%;
+    --primary: 145 60% 38%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 28 90% 55%;
+    --secondary: 28 85% 55%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 240 5% 96%;
+    --muted: 240 5% 97%;
     --muted-foreground: 240 4% 46%;
 
-    --accent: 200 95% 45%;
+    --accent: 250 70% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 145 65% 42%;
+    --border: 240 6% 92%;
+    --input: 240 6% 92%;
+    --ring: 145 60% 38%;
 
     --radius: 1rem;
 
-    /* Custom gradients - Indian inspired */
-    --gradient-hero: linear-gradient(135deg, hsl(28 90% 55%) 0%, hsl(145 65% 42%) 100%);
-    --gradient-feature: linear-gradient(135deg, hsl(28 90% 95%) 0%, hsl(145 65% 95%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(200 95% 45%) 0%, hsl(145 65% 42%) 100%);
+    /* Custom gradients - refined Indian inspired palette */
+    --gradient-hero: linear-gradient(135deg, hsl(28 85% 55%) 0%, hsl(145 60% 38%) 50%, hsl(250 70% 50%) 100%);
+    --gradient-feature: linear-gradient(135deg, hsl(28 85% 98%) 0%, hsl(145 60% 97%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(250 70% 50%) 0%, hsl(145 60% 38%) 100%);
+    --gradient-subtle: linear-gradient(135deg, hsl(28 20% 98%) 0%, hsl(145 15% 98%) 100%);
+    --gradient-auth: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(28 20% 99%) 30%, hsl(145 15% 99%) 70%, hsl(0 0% 100%) 100%);
+    --gradient-page: linear-gradient(135deg, hsl(28 15% 99%) 0%, hsl(145 10% 98.5%) 50%, hsl(250 10% 99%) 100%);
+    --gradient-muted: linear-gradient(135deg, hsl(240 5% 98%) 0%, hsl(240 5% 97%) 100%);
     
-    /* Shadows */
-    --shadow-soft: 0 4px 20px -2px hsl(145 65% 42% / 0.1);
-    --shadow-medium: 0 8px 30px -4px hsl(145 65% 42% / 0.15);
-    --shadow-strong: 0 20px 60px -10px hsl(145 65% 42% / 0.25);
+    /* Shadows - more nuanced, less green-tinted */
+    --shadow-soft: 0 2px 12px -2px hsl(240 10% 20% / 0.08);
+    --shadow-medium: 0 4px 24px -4px hsl(240 10% 20% / 0.12);
+    --shadow-strong: 0 12px 48px -8px hsl(240 10% 20% / 0.18);
+    --shadow-colored: 0 8px 32px -4px hsl(145 60% 38% / 0.15);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -95,6 +100,16 @@ All colors MUST be HSL.
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold tracking-tight;
   }
+
+  h1 {
+    @apply leading-[1.1];
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    @apply leading-[1.2];
+    letter-spacing: -0.01em;
+  }
 }
 
 @layer utilities {
@@ -109,6 +124,10 @@ All colors MUST be HSL.
   .gradient-accent {
     background: var(--gradient-accent);
   }
+
+  .gradient-subtle {
+    background: var(--gradient-subtle);
+  }
   
   .shadow-soft {
     box-shadow: var(--shadow-soft);
@@ -121,8 +140,67 @@ All colors MUST be HSL.
   .shadow-strong {
     box-shadow: var(--shadow-strong);
   }
+
+  .shadow-colored {
+    box-shadow: var(--shadow-colored);
+  }
   
   .transition-smooth {
     transition: var(--transition-smooth);
+  }
+
+  .gradient-auth {
+    background: var(--gradient-auth);
+  }
+
+  .gradient-page {
+    background: var(--gradient-page);
+  }
+
+  .gradient-muted {
+    background: var(--gradient-muted);
+  }
+
+  .texture-overlay {
+    position: relative;
+  }
+
+  .texture-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 1px 1px, hsl(240 10% 20% / 0.03) 1px, transparent 0),
+      radial-gradient(circle at 20px 20px, hsl(240 10% 20% / 0.015) 1px, transparent 0);
+    background-size: 24px 24px, 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .texture-overlay > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .bg-gradient-orbs {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bg-gradient-orbs::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, hsl(28 85% 55% / 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, hsl(145 60% 38% / 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, hsl(250 70% 50% / 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-gradient-orbs > * {
+    position: relative;
+    z-index: 1;
   }
 }
