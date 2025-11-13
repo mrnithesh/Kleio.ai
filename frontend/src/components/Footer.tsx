@@ -1,4 +1,4 @@
-import { Home, Github, Linkedin, ExternalLink } from "lucide-react";
+import { Github, Linkedin, ExternalLink } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -8,9 +8,11 @@ export const Footer = () => {
           {/* Brand */}
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                <Home className="w-5 h-5 text-primary" />
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="Kleio.ai Logo" 
+                className="w-16 h-16 object-contain"
+              />
               <span className="text-xl font-bold text-foreground tracking-tight">
                 Kleio.ai
               </span>

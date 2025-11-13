@@ -381,7 +381,7 @@ yarn dev
 bun dev
 ```
 
-The app will be available at: http://localhost:8080
+The app will be available at: http://localhost:5173
 
 ---
 

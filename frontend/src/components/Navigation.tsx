@@ -1,19 +1,22 @@
 import { Button } from "@/components/ui/button";
-import { Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const Navigation = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-              <Home className="w-5 h-5 text-primary" />
-            </div>
+          <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => navigate('/')}>
+            <img 
+              src="/logo.png" 
+              alt="Kleio.ai Logo" 
+              className="w-14 h-14 object-contain"
+            />
             <span className="text-xl font-bold text-foreground tracking-tight">
               Kleio.ai
             </span>
@@ -35,10 +38,26 @@ export const Navigation = () => {
             </a>
           </div>
 
-          {/* CTA Button */}
-          <Button variant="hero" size="sm" className="shadow-colored hover:shadow-medium" onClick={() => navigate('/signup')}>
-            Get Early Access
-          </Button>
+          {/* CTA Button - Show different button based on auth status */}
+          {user ? (
+            <Button 
+              variant="hero" 
+              size="sm" 
+              className="shadow-colored hover:shadow-medium" 
+              onClick={() => navigate('/app')}
+            >
+              Go to Dashboard
+            </Button>
+          ) : (
+            <Button 
+              variant="hero" 
+              size="sm" 
+              className="shadow-colored hover:shadow-medium" 
+              onClick={() => navigate('/signup')}
+            >
+              Get Early Access
+            </Button>
+          )}
         </div>
       </div>
     </nav>

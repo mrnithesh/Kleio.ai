@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const CTA = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  
   return (
     <section className="py-32 relative overflow-hidden bg-gradient-hero">
       {/* Subtle overlay for better text contrast */}
@@ -23,22 +28,37 @@ export const CTA = () => {
             Join thousands of Indian families already using Kleio to save time, reduce waste, and bring peace of mind to their households.
           </p>
 
-          {/* Waitlist form */}
-          <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-            <Input 
-              type="email" 
-              placeholder="Enter your email address"
-              className="bg-background border-border h-12 lg:h-14 text-base shadow-soft focus:shadow-medium transition-all"
-            />
-            <Button 
-              size="lg" 
-              variant="hero"
-              className="h-12 lg:h-14 px-8 font-semibold shadow-colored hover:shadow-medium group"
-            >
-              Get Started Free
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
+          {/* CTA Button - Show different based on auth status */}
+          {user ? (
+            <div className="flex justify-center">
+              <Button 
+                size="lg" 
+                variant="hero"
+                className="h-12 lg:h-14 px-8 font-semibold shadow-colored hover:shadow-medium group"
+                onClick={() => navigate('/app')}
+              >
+                Go to Dashboard
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+          ) : (
+            <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+              <Input 
+                type="email" 
+                placeholder="Enter your email address"
+                className="bg-background border-border h-12 lg:h-14 text-base shadow-soft focus:shadow-medium transition-all"
+              />
+              <Button 
+                size="lg" 
+                variant="hero"
+                className="h-12 lg:h-14 px-8 font-semibold shadow-colored hover:shadow-medium group"
+                onClick={() => navigate('/signup')}
+              >
+                Get Started Free
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+          )}
 
           {/* Trust indicators */}
           <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-8 pt-6">

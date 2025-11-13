@@ -13,7 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
-import { Sparkles, Users, ChefHat, MapPin, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
+import { Users, ChefHat, MapPin, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import api from '@/lib/api';
 
@@ -90,10 +90,12 @@ const Onboarding = () => {
     <div className="min-h-screen flex items-center justify-center gradient-auth texture-overlay bg-gradient-orbs p-4">
       <div className="w-full max-w-2xl">
         {/* Logo */}
-        <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-lg gradient-hero flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-white" />
-          </div>
+        <div className="flex items-center justify-center gap-2.5 mb-8">
+          <img 
+            src="/logo.png" 
+            alt="Kleio.ai Logo" 
+            className="w-16 h-16 object-contain"
+          />
           <span className="text-2xl font-bold text-primary">Kleio.ai</span>
         </div>
 

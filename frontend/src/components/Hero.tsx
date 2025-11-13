@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, TrendingDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import heroImage from "@/assets/hero-kitchen.jpg";
 
 export const Hero = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
@@ -34,13 +36,22 @@ export const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="group shadow-colored hover:shadow-medium" onClick={() => navigate('/signup')}>
-                Get Started Free
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button variant="outline" size="lg" onClick={() => navigate('/login')}>
-                Sign In
-              </Button>
+              {user ? (
+                <Button variant="hero" size="lg" className="group shadow-colored hover:shadow-medium" onClick={() => navigate('/app')}>
+                  Go to Dashboard
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              ) : (
+                <>
+                  <Button variant="hero" size="lg" className="group shadow-colored hover:shadow-medium" onClick={() => navigate('/signup')}>
+                    Get Started Free
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  <Button variant="outline" size="lg" onClick={() => navigate('/login')}>
+                    Sign In
+                  </Button>
+                </>
+              )}
             </div>
 
             {/* Indian Languages Support */}

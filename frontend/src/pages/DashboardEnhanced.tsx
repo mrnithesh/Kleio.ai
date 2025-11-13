@@ -9,7 +9,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Home, Package, Receipt, ChefHat, LogOut, TrendingUp, AlertTriangle, ShoppingCart, Calendar, Settings } from 'lucide-react';
+import { Package, Receipt, ChefHat, LogOut, TrendingUp, AlertTriangle, ShoppingCart, Calendar, Settings } from 'lucide-react';
 
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
@@ -106,16 +106,20 @@ const DashboardEnhanced = () => {
         <div className="container mx-auto px-4 py-4 lg:py-5">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                <Home className="w-5 h-5 text-primary" />
-              </div>
+            <div 
+              className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" 
+              onClick={() => navigate('/')}
+            >
+              <img 
+                src="/logo.png" 
+                alt="Kleio.ai Logo" 
+                className="w-16 h-16 object-contain"
+              />
               <div>
                 <h1 className="text-xl font-bold text-foreground tracking-tight">Kleio.ai</h1>
                 <p className="text-xs text-muted-foreground">Smart Inventory</p>
               </div>
             </div>
-
             {/* User Info & Actions */}
             <div className="flex items-center gap-3">
               <div className="text-right hidden md:block">
